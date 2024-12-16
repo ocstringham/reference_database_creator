@@ -1253,6 +1253,13 @@ def extract_alignment_results(console, columns, align_temp_path, amplicon_fasta_
                         amplicon_fasta_dict[raw_fasta_dict[query]['header']] = sequence
                 else:
                     if tcov >= float(coverage_) and (qilo - 1 < len(forward_) or end_pos < len(reverse_)):
+                        for key, value in raw_fasta_dict.items():
+                            print(f"Key: {key}, Value: {value}")
+                            if 'sequence' not in value:
+                                print(f"Missing 'sequence' for key: {key}")
+                        if query not in raw_fasta_dict:
+                            print(f"Query {query} not found in raw_fasta_dict")
+                            continue
                         sequence = raw_fasta_dict[query]['sequence']
                         sequence = sequence[qilo - 1 : qihi]
                         amplicon_fasta_dict[raw_fasta_dict[query]['header']] = sequence + '\n'
